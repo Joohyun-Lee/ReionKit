@@ -48,7 +48,7 @@ def binary_MFP_map(
     n_cell: int = 1024,
     num_sightlines: int = 192,
     max_reach: float = 2.5,
-    resolution: int = 4,
+    resolution: int = 2,
     mpi_start_i: int = 0,
     mpi_rank: int = 0,
 ):
@@ -70,7 +70,7 @@ def binary_MFP_map(
       (int; 12, 48, 192, 768)
     - max_reach: Maximum reach of sightlines in n_cell unit (float)
     - resolution: How finely interpolate binary_map
-                  on sightline (int)
+                  on sightline; delta_x = cell_width/resolution (int)
     - mpi_start_i: Layer number to start mpi process
       (int; 0 - (n_cell-1))
     - mpi_rank: mpi_rank of this CPU
@@ -102,12 +102,12 @@ def binary_MFP_map(
     direction_vectors = healpix_direction_vectors(num_sightlines)
 
     ### load data
-    binary_map = np.load(path)
+    binary_map = np.ascontiguousarray(np.load(path))
 
     ### initialize MFP bubble size array 
     ### and standard deviation array
-    MFP = np.zeros((n_cell, n_cell), dtype=np.float32)
-    sigma = np.zeros((n_cell, n_cell), dtype=np.float32)
+    MFP = np.ascontiguousarray(np.zeros((n_cell, n_cell), dtype=np.float32))
+    sigma = np.ascontiguousarray(np.zeros((n_cell, n_cell), dtype=np.float32))
 
     start_time = time.time()
 
@@ -124,7 +124,7 @@ def binary_MFP_map(
 
                     alpha = np.linspace(
                         0, max_reach * n_cell, int(max_reach * n_cell * resolution)
-                    )  # skewer resolution ~= cell_width / resolution
+                    )  # skewer resolution = cell_width / resolution
 
                     xyz = np.c_[x + alpha * d1, y + alpha * d2, z + alpha * d3]
 

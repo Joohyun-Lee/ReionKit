@@ -1,3 +1,4 @@
+# Cosmological simulation class
 class CosmoSim:
     def __init__(
         self,

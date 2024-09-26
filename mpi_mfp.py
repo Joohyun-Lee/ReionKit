@@ -31,7 +31,7 @@ print('mpi (size, rank): ', mpi_size, mpi_rank)
 
 
 
-snapnum=23
+snapnum=90
 
 
 path = './'
@@ -39,11 +39,19 @@ path = path + f'output_{snapnum :06d}_ion_reduced.npy'
 savepath = f'./output_{snapnum :06d}'
 
 
-# [0, 48, 96, 144, 192, 240, 288, 336, 384, 432]
-# [480, 528, 576, 624, 672, 720, 768, 816, 864, 912, 960]
+# [0, 48]
+# [96, 144]
+# [192, 240] 
+# [288, 336]
+# [384, 432]
+# [480, 528]
+# [576, 624]
+# [672, 720]
+# [768, 816]
+# [864, 912, 960]
 # [1008-1024]
-for offset in [1008]: 
+for offset in [96, 144]:
     binary_MFP_map(CoDa, path, savepath,
-                   n_cell = 1024, num_sightlines = 192, max_reach = 2.5, resolution = 4,
+                   n_cell = 1024, num_sightlines = 192, max_reach = 2.5, resolution = 2,
                    mpi_start_i = 0, mpi_rank = offset + mpi_rank)
 
