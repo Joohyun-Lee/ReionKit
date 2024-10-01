@@ -12,7 +12,7 @@
 1) Initialize a simulation object
 2) Run analysis on a slice of the simulated ionization field (binary; np.bool dtype)
 
----<br>
+---
 Example code
 ```
 import numpy as np # type: ignore
