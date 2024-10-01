@@ -23,10 +23,21 @@ import time # type: ignore
 from mpi4py import MPI # type: ignore
 
 import simulation
-from functions import remove_similar_elements, healpix_direction_vectors, binary_MFP_map
+from functions import binary_MFP_map
+
+# change cosmological parameters!
+h=0.677699966430664
+omega_b=0.450000017881393E-01
+omega_m=0.307114988565445E+00
+
+sim = simulation.CosmoSim(boxsize=64, h=h, Omega_m=omega_m, Omega_lambda=1 - omega_m, Omega_b=omega_b)
+
+path = 'whatever path of the ionization field (.npy with np.bool dtype)'
+savepath = 'whatever path of a directory you want to save the outputs'
+offset = i_z # layer number you want to calculate MFP bubble sizes
+
+binary_MFP_map(CoDa, path, savepath,
+               n_cell = 1024, num_sightlines = 192, max_reach = 2.5, resolution = 2,
+               mpi_start_i = 0, mpi_rank = offset)
 ```
-
-
-
-
 
