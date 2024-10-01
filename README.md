@@ -12,6 +12,8 @@
 1) Initialize a simulation object
 2) Run analysis on a slice of the simulated ionization field (binary; np.bool dtype)
 
+For more info about inputs and outputs, refer to functions.py
+
 ---
 Example code
 ```
